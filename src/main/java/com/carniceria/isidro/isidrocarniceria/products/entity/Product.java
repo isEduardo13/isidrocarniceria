@@ -1,4 +1,4 @@
-package com.carniceria.isidro.isidrocarniceria.customers.entity;
+package com.carniceria.isidro.isidrocarniceria.products.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,26 +10,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "clientes")
-public class Customer {
+@Table(name = "productos")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "nombre")
-    private String name;
+    @Column(name= "descripcion")
+    private String descripcion;
+    
+    @Column(name= "precio_actual")
+    private double currentPrice;
 
-    @Column(name= "telefono")
-    private String phone;
+    @Column(name= "unidad_venta")
+    private String saleUnit;
 
-    @Column(name= "direccion")
-    private String address;
-
-    @Column(name= "notas")
-    private String notes;   
+    @Column(name= "activo")
+    private boolean isActive;
 }
