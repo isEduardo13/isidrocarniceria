@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
+import com.carniceria.isidro.isidrocarniceria.orders.dto.OrderResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
 import com.carniceria.isidro.isidrocarniceria.orders.repository.OrderRepository;
 
@@ -16,8 +18,13 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Optional<Order>findByIdWithCustomer(Long id) {
-        return orderRepository.findByIdWithCustomer(id);
+    public Optional<OrderResponseDTO> findById(Long id) {
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow();
+        
+                return Optional.of(Mapper.orderToResponseDTO(order));
+
     }
-    
+
 }

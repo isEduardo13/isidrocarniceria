@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
+import com.carniceria.isidro.isidrocarniceria.orders.dto.OrderResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.service.OrderService;
 
 @RestController
@@ -20,8 +20,8 @@ public class OrderController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        return orderService.findByIdWithCustomer(id)
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long id) {
+        return orderService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

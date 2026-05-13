@@ -1,8 +1,11 @@
 package com.carniceria.isidro.isidrocarniceria.orders.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.carniceria.isidro.isidrocarniceria.customers.entity.Customer;
+import com.carniceria.isidro.isidrocarniceria.orders.details.entity.Detail;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,4 +57,10 @@ public class Order {
 
     @Column(name = "notas")
     private String notes;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Detail> details = new ArrayList<>();
+    
+
 }

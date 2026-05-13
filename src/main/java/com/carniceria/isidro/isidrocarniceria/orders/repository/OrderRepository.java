@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long>{
-    @Query("SELECT o FROM Order o JOIN FETCH o.customer WHERE o.id = :id")
-    Optional<Order> findByIdWithCustomer(Long id);   
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    @Query("SELECT DISTINCT o FROM Order o JOIN FETCH o.customer LEFT JOIN FETCH o.details d  LEFT JOIN FETCH d.product WHERE o.id = :id")
+    Optional<Order> FindById(Long id);
 }
- 
