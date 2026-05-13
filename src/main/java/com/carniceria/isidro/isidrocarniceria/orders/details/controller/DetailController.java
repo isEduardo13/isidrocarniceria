@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carniceria.isidro.isidrocarniceria.orders.details.entity.Detail;
+import com.carniceria.isidro.isidrocarniceria.orders.details.dto.DetailResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.details.service.DetailService;
 
 @RestController
@@ -19,7 +19,7 @@ public class DetailController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Detail> getDetailById(@PathVariable Long id) {
+    public ResponseEntity<DetailResponseDTO> getDetailById(@PathVariable Long id) {
         return detailService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

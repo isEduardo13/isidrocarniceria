@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
+import com.carniceria.isidro.isidrocarniceria.orders.details.dto.DetailResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.details.entity.Detail;
 import com.carniceria.isidro.isidrocarniceria.orders.details.repository.DetailRepository;
 
@@ -16,8 +18,9 @@ public class DetailService {
         this.detailRepository = detailRepository;
     }
 
-    public Optional<Detail> findById(Long id) {
-        return detailRepository.findById(id);
+   public Optional<DetailResponseDTO> findById(Long id) {
+        Detail detail = detailRepository.findById(id).orElseThrow();
+        return Optional.of(Mapper.detailToResponseDTO(detail)); 
     }
     
 }

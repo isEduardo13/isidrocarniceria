@@ -11,5 +11,6 @@ import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT DISTINCT o FROM Order o JOIN FETCH o.customer LEFT JOIN FETCH o.details d  LEFT JOIN FETCH d.product WHERE o.id = :id")
-    Optional<Order> FindById(Long id);
+    @Override
+    Optional<Order> findById(Long id);
 }
