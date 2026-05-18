@@ -10,7 +10,7 @@ import com.carniceria.isidro.isidrocarniceria.orders.payments.dto.PaymentRespons
 import com.carniceria.isidro.isidrocarniceria.orders.payments.service.PaymentService;
 
 @RestController
-@RequestMapping("/api/payments")
+@RequestMapping("/api/orders/payments")
 public class PaymentController {
 
     private final PaymentService paymentService;
