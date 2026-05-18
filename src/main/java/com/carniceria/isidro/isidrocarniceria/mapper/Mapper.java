@@ -15,6 +15,8 @@ import com.carniceria.isidro.isidrocarniceria.orders.payments.entity.Payment;
 import com.carniceria.isidro.isidrocarniceria.products.dto.ProductDTO;
 import com.carniceria.isidro.isidrocarniceria.products.dto.ProductResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.products.entity.Product;
+import com.carniceria.isidro.isidrocarniceria.products.pricehistory.dto.PriceHisotoryResponseDTO;
+import com.carniceria.isidro.isidrocarniceria.products.pricehistory.entity.PriceHistory;
 
 public class Mapper {
 
@@ -26,6 +28,15 @@ public class Mapper {
                                 product.getCurrentPrice(),
                                 product.getSaleUnit(),
                                 product.isActive());
+        }
+
+        public static PriceHisotoryResponseDTO priceHistoryToResponseDTO(PriceHistory priceHistory) {
+                return new PriceHisotoryResponseDTO(
+                                priceHistory.getId(),
+                                priceHistory.getProduct().getId(),
+                                priceHistory.getPrice(),
+                                priceHistory.getStartTime().toString(),
+                                priceHistory.getEndTime() != null ? priceHistory.getEndTime().toString() : null);
         }
 
         public static OrderSummaryDTO orderToSummaryDTO(Order order) {
