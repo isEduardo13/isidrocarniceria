@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
+import com.carniceria.isidro.isidrocarniceria.products.dto.ProductResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.products.entity.Product;
 import com.carniceria.isidro.isidrocarniceria.products.repository.ProductRepository;
 
@@ -15,7 +17,10 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public Optional<ProductResponseDTO> getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow();
+
+        return Optional.of(Mapper.productToResponseDTO(product));
     }
 }

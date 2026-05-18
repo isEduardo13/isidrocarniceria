@@ -13,8 +13,20 @@ import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
 import com.carniceria.isidro.isidrocarniceria.orders.payments.dto.PaymentResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.payments.entity.Payment;
 import com.carniceria.isidro.isidrocarniceria.products.dto.ProductDTO;
+import com.carniceria.isidro.isidrocarniceria.products.dto.ProductResponseDTO;
+import com.carniceria.isidro.isidrocarniceria.products.entity.Product;
 
 public class Mapper {
+
+        public static ProductResponseDTO productToResponseDTO(Product product) {
+                return new ProductResponseDTO(
+                                product.getId(),
+                                product.getDescription(),
+                                product.getName(),
+                                product.getCurrentPrice(),
+                                product.getSaleUnit(),
+                                product.isActive());
+        }
 
         public static OrderSummaryDTO orderToSummaryDTO(Order order) {
                 return new OrderSummaryDTO(
@@ -24,7 +36,7 @@ public class Mapper {
                                 order.getTotalMount());
         }
 
-        public static PaymentResponseDTO paymentToResponseDTO(Payment payment){
+        public static PaymentResponseDTO paymentToResponseDTO(Payment payment) {
                 CustomerDTO customerDTO = CustomerDTO.builder()
                                 .id(payment.getCustomer().getId())
                                 .name(payment.getCustomer().getName())
@@ -45,13 +57,13 @@ public class Mapper {
                                 payment.getOrder().getNotes());
 
                 return PaymentResponseDTO.builder()
-                        .id(payment.getId())
-                        .customer(customerDTO)
-                        .order(orderDTO)
-                        .amount(payment.getAmount())
-                        .paidAt(payment.getPaidAt())
-                        .remarks(payment.getRemarks())
-                        .build();
+                                .id(payment.getId())
+                                .customer(customerDTO)
+                                .order(orderDTO)
+                                .amount(payment.getAmount())
+                                .paidAt(payment.getPaidAt())
+                                .remarks(payment.getRemarks())
+                                .build();
         }
 
         public static OrderResponseDTO orderToResponseDTO(Order order) {
@@ -85,6 +97,7 @@ public class Mapper {
         public static DetailResponseDTO detailToResponseDTO(Detail detail) {
                 ProductDTO productDTO = ProductDTO.builder()
                                 .id(detail.getProduct().getId())
+                                .name(detail.getProduct().getName())
                                 .description(detail.getProduct().getDescription())
                                 .currentPrice(detail.getProduct().getCurrentPrice())
                                 .saleUnit(detail.getProduct().getSaleUnit())
