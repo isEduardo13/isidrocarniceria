@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.exception.ResourceNotFoundException;
 import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
 import com.carniceria.isidro.isidrocarniceria.orders.payments.dto.PaymentResponseDTO;
+import com.carniceria.isidro.isidrocarniceria.orders.payments.entity.Payment;
 import com.carniceria.isidro.isidrocarniceria.orders.payments.repository.PaymentRepository;
 
 @Service
@@ -18,7 +20,8 @@ public class PaymentService {
     }
 
     public Optional<PaymentResponseDTO> findById(Long id) {
-        return paymentRepository.findById(id).map(Mapper::paymentToResponseDTO);
+        Payment payment = paymentRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Payment not found " ));
+        return Optional.of(Mapper.paymentToResponseDTO(payment));
     }
 
 }

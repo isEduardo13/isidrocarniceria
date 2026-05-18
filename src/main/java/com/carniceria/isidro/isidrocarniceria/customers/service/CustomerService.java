@@ -6,18 +6,21 @@ import org.springframework.stereotype.Service;
 
 import com.carniceria.isidro.isidrocarniceria.customers.entity.Customer;
 import com.carniceria.isidro.isidrocarniceria.customers.repository.CustomerRepository;
+import com.carniceria.isidro.isidrocarniceria.exception.ResourceNotFoundException;
 
 @Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
+    public Optional<Customer> getCustomerById(Long id) {
+         Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
+        return Optional.of(customer);
+    }
 
-  public Optional<Customer> getCustomerById(Long id) {
-    return customerRepository.findById(id);
-}
-    
 }

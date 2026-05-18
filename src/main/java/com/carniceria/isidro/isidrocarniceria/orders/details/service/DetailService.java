@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.exception.ResourceNotFoundException;
 import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
 import com.carniceria.isidro.isidrocarniceria.orders.details.dto.DetailResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.details.entity.Detail;
@@ -19,7 +20,7 @@ public class DetailService {
     }
 
    public Optional<DetailResponseDTO> findById(Long id) {
-        Detail detail = detailRepository.findById(id).orElseThrow();
+        Detail detail = detailRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Detail not found " ));
         return Optional.of(Mapper.detailToResponseDTO(detail)); 
     }
     

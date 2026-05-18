@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.carniceria.isidro.isidrocarniceria.exception.ResourceNotFoundException;
 import com.carniceria.isidro.isidrocarniceria.mapper.Mapper;
 import com.carniceria.isidro.isidrocarniceria.orders.dto.OrderResponseDTO;
 import com.carniceria.isidro.isidrocarniceria.orders.entity.Order;
@@ -21,7 +22,7 @@ public class OrderService {
     public Optional<OrderResponseDTO> findById(Long id) {
 
         Order order = orderRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
         
                 return Optional.of(Mapper.orderToResponseDTO(order));
 
